@@ -1,0 +1,49 @@
+/*Création de la base de données et contraintes d’intégrité */
+/* Q1 : */
+create table DEPT (
+DEPTNO int primary key,
+DNAME varchar(500) check(DNAME in('ACCOUNTING', 'RESEARCH', 'SALES' ,'OPERATIONS')),
+LOC varchar(500))
+
+/* Q2 : */
+Insert into DEPT  values(10,'ACCOUNTING','NEW-YORK');
+Insert into DEPT  values(20,'RESEARCH','DALLAS');
+Insert into DEPT  values(30,'SALES','CHICAGO');
+Insert into DEPT  values(40,'OPERATIONS','BOSTON');
+
+/* Q3 : */
+CREATE TABLE EMP AS SELECT * FROM SCOTT.EMP;
+
+/* Q4 : */
+INSERT INTO EMP values(7369, 'Bidon', NULL, NULL, NULL, NULL, NULL, NULL);
+Oui , ça fonctionne normal car ona a pas pas ajouter des contraintes not null aux attributs de la table EMP
+
+/* Q5 : */
+DELETE From EMP where EMPNO=7369 and ENAME='Bidon' ;
+
+/* Q6 : */
+ALTER TABLE EMP ADD CONSTRAINT pk Primary key(EMPNO);
+ALTER TABLE EMP ADD CONSTRAINT fk foreign key(DEPTNO) REFERENCES DEPT (DEPTNO);
+ALTER TABLE EMP ADD CONSTRAINT fkmgr foreign key(MGR) REFERENCES EMP (EMPNO);
+
+/* Q7 : */
+insert into EMP values (7369, 'WILSON', 'MANAGER', 7839, '17/11/91', 3500.00, 600.00, 10) ;
+(7657, 'WILSON','MANAGER', 7839, '17/11/91', 3500.00, 600.00, 50) ;
+(7657, 'WILSON', 'MANAGER', 7000,'17/11/91', 3500.00, 600.00, 10) ;
+(7657, 'WILSON', 'MANAGER', 7839, '17/11/91', 3500.00,600.00, 10);
+/*
+Pour la premiére insertion : le EMPNO n'accepte pas les doublons car c'est une primary key el le DEPNO inséré existe déja , aussi la forme de la date est incompatible .
+Pour la 2 éme insertion :la valeur DEPTNO insérée qui est une foreign key  n'existe pas dans la table DEPT , aussi la forme de la date est incompatible .
+Pour la 3 éme insertion :le MGR n'existe pas comme EMPNO dans la table EMP, et la forme de la date est incompatible .
+Pour la 4 éme insertion :la forme de la date est incompatible .
+*/
+
+/*Q8 :*/
+insert into EMP values(7657, 'WILSON', 'MANAGER', 7839, '17-NOV-91', 3500.00,600.00, 10);
+
+/*Mise à jour de la base de données*/
+/*Q1 : */
+UPDATE DEPT SET LOC ='PITTSBURGH' where LOC LIKE 'CHICAGO'
+
+/*Q2 : */
+UPDATE EMP SET SAL = SAL+(SAL*0.10) where COMM >=(SAL*0.50)
