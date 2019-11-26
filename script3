@@ -1,0 +1,9 @@
+SELECT * from AIRPLANE where Capacity > 350
+
+SELECT NumAP, NameAP from  where Localisation='Nice'
+
+select NumP , Dep_T from PILOT p join FLIGHT f on(p.NumP=f.NumP)
+
+select * from PILOT , IRPLANE ,FLIGHT where ()
+
+
