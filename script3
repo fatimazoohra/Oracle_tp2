@@ -1,9 +1,36 @@
-SELECT * from AIRPLANE where Capacity > 350
+Exercice 1:
 
-SELECT NumAP, NameAP from  where Localisation='Nice'
+1- SELECT * from AIRPLANE where Capacity > 350
 
-select NumP , Dep_T from PILOT p join FLIGHT f on(p.NumP=f.NumP)
+2- SELECT NumAP, NameAP from  where Localisation='Nice'
 
-select * from PILOT , IRPLANE ,FLIGHT where ()
+3- select NumP , Dep_T from PILOT p join FLIGHT f on(p.NumP=f.NumP)
+
+4- select * from PILOT P, FLIGHT F where (P.NumP=F.NumP)
+
+5- select NameP FROM PILOT where Address='Paris' AND salary>15000
+
+6- SELECT NumAP,NameAP FROM AIRPLANE where  Localisation='Nice' and Capacity<350
+
+7-SELECT NumF from FLIGHT WHERE Dep_T='Nice' and Arr_T='Paris' AND Dep_H >18
+
+8-select NumP From PILOT WHERE NumP Not IN (select NumP from FLIGHT)
+
+9-select NumF,Dep_T From FLIGHT where NumP IN (100,204)
+
+Exercice2:
+1- select Personne from Emprunt where Livre='Recueil Examens BD'
+
+2-select Personne from Emprunt where Personne not in (select Personne from Retard) 
+
+3-SELECT e.Personne FROM Emprunt e
+WHERE(SELECT COUNT(em.Livre) FROM Emprunt em WHERE em.Personne=e.Personne GROUP BY em.Livre)=(SELECT COUNT(Livre) FROM Emprunt GROUP BY Livre);
+
+4-SELECT e.Livre FROM Emprunt e
+WHERE (SELECT COUNT(em.Personne) FROM Emprunt em WHERE em.Livre=e.Livre GROUP BY em.Personne)=(SELECT COUNT(Personne) FROM Emprunt GROUP BY Personne);
+
+5-SELECT e.Personne FROM Emprunt e
+WHERE (SELECT COUNT(em.Livre) FROM Emprunt em WHERE em.Personne=e.Personne)=(SELECT COUNT(r.Livre) FROM Retard WHERE r.Personne=e.Personne);
+
 
 

@@ -47,3 +47,29 @@ UPDATE DEPT SET LOC ='PITTSBURGH' where LOC LIKE 'CHICAGO'
 
 /*Q2 : */
 UPDATE EMP SET SAL = SAL+(SAL*0.10) where COMM >=(SAL*0.50)
+
+/*Q3 : */
+UPDATE EMP SET COM=avg(COMM) WHERE HIREDATE<to_date(01/01/89) AND COMM IS NULL
+/*Q4 : */
+RollBack
+/*Q5 : */
+Delete DEPT  WHERE DEPTNO=50
+
+Interrogation de la base de données
+
+1-select ENAME,SAL,COMM, (SAL+COMM) From EMP WHERE JOB='SALESMAN '
+2-select ENAME,(COMM/SAL) as ratio From EMP WHERE JOB='SALESMAN' order by ratio desc
+3-select ENAME, From EMP WHERE JOB='SALESMAN' AND COMM< (0.25*SAL)
+4-select count(EMPNO) from EMP WHERE DEPTNO=10
+5-select count(EMPNO) from EMP COMM IS NOT NULL
+6-select count(distinct(JOB)) from EMP
+7-select avg(SAL) from EMP group by JOB
+8-select sum(SAL) from EMP E,DEMP D ON(E.DEPTNO=D.DEPTNO)
+9-select ENAME,DEPTNO From EMP
+10-select ENAME,JOB,SAL From EMP where Sal =(select MAX(sal) from EMP)
+11-select ENAME from EMP where SAL > (select SAL from EMP WHERE ENAME='JONES')
+12-select ENAME FROM EMP WHERE JOB =(select JOB FROM EMP where ENAME='JONES')
+13-select ENAME FROM EMP where MGR = (select MGR from EMP WHERE ENAME='CLARK')
+14-select ENAME,JOB FROM where JOB=(select JOB from EMP  WHERE ENAME='TURNER') AND MGR=(select MGR from EMP where ENAME='TURNER')
+15-Select ENAME from EMP where HIREDATE<(select HIREDATE FROM EMP WHERE DEPTNO=10)
+
