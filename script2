@@ -1,0 +1,118 @@
+/* A) Création des tables */
+create table PIECE(
+    NOP int,
+    DESIGNATION  varchar(100),
+    COULEUR,
+    POIDS
+);
+create table SERVICE(
+    NOS int,
+    INTITULE varchar(25),
+    LOCALISATION varchar(35)
+);
+create table ORDRE(
+    NOP int, 
+    NOS int, 
+    QUANTITE int
+);
+create table NOMENCLATURE(
+    NOPA int,
+    NOPC int,
+    QUANTITE int
+);
+/* A) Contraintes d’intégrité */
+/* 1. */
+insert into PIECE(NOP, DESIGNATION, COULEUR, POIDS) 
+values
+    (1, 'designation1', 'blue', 120),
+    (1, 'designation1', 'blue', 120);
+/* 2. */
+insert into SERVICE(NOS, INTITULE, LOCALISATION) 
+values
+    (1, 'service1', 'localisation1'),
+    (1, 'service2', 'localisation2');
+/* 3. */
+insert into ORDRE(NOP, NOS, QUANTITE)
+values((1,15,150), (2,15,12));
+/* 4. */
+insert into NOMENCLATURE (NOPA, NOPC, QUANTITE) 
+values((1, 2, 15),  (2, 3, 17));
+/* 5. */
+alter table PIECE 
+    add constraint  p_primary_key
+    PRIMARY KEY (NOP) ;
+
+alter table SERVICE 
+    add constraint  s_primary_key
+    PRIMARY KEY (NOS) ;
+
+alter table ORDRE 
+    add constraint  o_primary_key
+    PRIMARY KEY (NOP, NOS) ,
+    add constraint  o_foreign_key1
+    FOREIGN KEY (NOP) REFERENCES PIECE(NOP),
+    add constraint  o_foreign_key2
+    FOREIGN KEY (NOS) REFERENCES SERVICE(NOS) ;
+
+alter table NOMENCLATURE
+    add constraint n_primary_key
+    PRIMARY KEY (NOPA),
+    add constraint n_foreign_key
+    FOREIGN KEY (NOPC) REFERENCES PIECE(NOP);
+
+ /* 6. */
+delete from PIECE;
+delete from SERVICE;
+delete from ORDRE;
+delete from NOMENCLATURE;
+
+insert into PIECE(NOP, DESIGNATION, COULEUR, POIDS) 
+    values
+    (1, 'designation1', 'blue', 120),
+    (2, 'designation1', 'blue', 120);
+
+insert into SERVICE(NOS, INTITULE, LOCALISATION) 
+    values
+    (1, 'service1', 'localisation1'),
+    (2, 'service2', 'localisation2');
+
+insert into ORDRE(NOP, NOS, QUANTITE)
+values((1,2,150), (2,1,12));
+
+insert into NOMENCLATURE (NOPA, NOPC, QUANTITE) 
+values((1, 1, 15),  (2, 2, 17));
+
+ /* 7. */
+alter table PIECE 
+    add constraint check_constraint 
+    CHECK (COULEUR in(ROUGE, VERTE, BLEUE, JAUNE))
+
+ /* C) Modification de la structure de la base */
+ /* 1. */
+alter table PIECE 
+    modify (DESIGNATION varchar(110));
+alter table SERVICE 
+    modify (INTITULE varchar(35))
+ /* 2. */
+alter table SERVICE 
+    modify (LOCALISATION varchar(25))
+ /* 3. */
+    alter table SERVICE 
+    ADD( DIRECTEUR varchar(20));
+ /* 4. */
+    alter table SERVICE
+    drop column LOCALISATION;
+ /* 5. */
+    alter table PIECE
+    drop constraint p_primary_key CASCADE;
+ /* 6. */
+    alter table PIECE
+    drop constraint check_constraint;
+ /* 7. */
+    drop table NOMENCLATURE;
+ /* 8. */
+     drop table ORDRE cascade constraints;
+
+
+
+
